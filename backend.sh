@@ -47,7 +47,7 @@ VALIDATE $? "Installing nodejs:20 "
 id roboshop
 if [ $? -ne 0 ]
 then
-    useradd --system --home /app --shell /sbin/nologin --comment "Roboshop system user " roboshop 
+    useradd --system --home /opt/app --shell /sbin/nologin --comment "Roboshop system user " roboshop 
     VALIDATE $? "Roboshop system user creating" 
 else
     echo -e "roboshop user is already Created ....$Y SKIPPING USER Creation $N"
@@ -87,7 +87,6 @@ VALIDATE $? "Loading SCHEMAS to MySQL"
 
 systemctl restart backend  &>>$LOG_FILE
 VALIDATE $? "Restarting Backend Services" 
-
 
 END_TIME=$(date +%S)
 TOTAL_TIME=$(($END_TIME-$START_TIME))

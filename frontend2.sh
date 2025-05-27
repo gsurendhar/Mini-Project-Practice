@@ -7,9 +7,9 @@ LOG_FOLDER="/var/log/expense-logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
 R="\e[31"
-G="\e[31"
-Y="\e[31"
-N="\e[31"
+G="\e[32"
+Y="\e[33"
+N="\e[0"
 
 echo "Script execution started at $(date) " | tee -a $LOG_FILE
 

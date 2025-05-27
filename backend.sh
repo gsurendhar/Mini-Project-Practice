@@ -7,50 +7,50 @@ LOG_FOLDER="/var/log/expense-logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
 R="\e[31"
-G="\e[31"
-Y="\e[31"
-N="\e[31"
+G="\e[32"
+Y="\e[33"
+N="\e[0"
 
-echo "Script execution started at $(date) " | tee -a $LOG_FILE
+echo "Script execution started at $(date +%F-%M-%S) " | tee -a $LOG_FILE
 
 mkdir -p $LOG_FOLDER
 
 # ROOT PRIVILEGES CHECKING
 if [ $USERID -ne 0 ]
 then 
-    echo -e " $R ERROR:$N Please run Script with the root access " | tee -a $LOG_FILE
+    echo -e "ERROR: Please run Script with the root access" | tee -a $LOG_FILE
     exit 1
 else 
-    echo -e " You are already running with $Y ROOT $N access " | tee -a $LOG_FILE
+    echo -e "You are already running with ROOT access" | tee -a $LOG_FILE
 fi
 
 # VALIDATION FUNCTION
 VALIDATE(){
     if [ $1 -eq 0 ]
     then
-        echo -e "$2 is ........$G SUCCESSES $N"  | tee -a $LOG_FILE
+        echo -e "$2 is ........ SUCCESSES"  | tee -a $LOG_FILE
     else    
-        echo -e "$2 is .........$R FAILURE $N"   | tee -a $LOG_FILE
+        echo -e "$2 is ......... FAILURE"   | tee -a $LOG_FILE
         exit 1
     fi
 }
 
 dnf module disable nodejs -y  &>>$LOG_FILE
-VALIDATE $? " Disabling Default nodejs"
+VALIDATE $? "Disabling Default nodejs"
 
 dnf module enable nodejs:20 -y &>>$LOG_FILE
-VALIDATE $? " enabling Default nodejs"
+VALIDATE $? "Enabling Default nodejs"
 
 dnf install nodejs -y &>>$LOG_FILE
-VALIDATE $? " Installing nodejs:20 "
+VALIDATE $? "Installing nodejs:20 "
 
 id expense
 if [ $? -ne 0 ]
 then
-    useradd --system --home /opt/app --shell /sbin/nologin --comment "Roboshop system user " expense 
-    VALIDATE $? "Roboshop system user creating" 
+    useradd --system --home /opt/app --shell /sbin/nologin --comment "Expense app system user " expense 
+    VALIDATE $? "EXPENSE system user creating" 
 else
-    echo -e " roboshop user is already Created ....$Y SKIPPING USER Creation $N"
+    echo -e "Expense user is already Created ....SKIPPING USER Creation"
 fi
 
 mkdir -p /opt/app
@@ -62,31 +62,31 @@ VALIDATE $? "Downloading backend"
 cd /opt/app 
 rm -rf /opt/app/*
 unzip /tmp/backend.zip &>>$LOG_FILE
-VALIDATE $? " Unzipping backend"
+VALIDATE $? "Unzipping backend"
 
 npm install &>>$LOG_FILE
-VALIDATE $? " Installing Dependencies"
+VALIDATE $? "Installing Dependencies"
 
 cp $SCRIPT_DIR/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
-VALIDATE $? " backend service file is copied "
+VALIDATE $? "backend service file is copied "
 
 systemctl daemon-reload &>>$LOG_FILE
-VALIDATE $? " Daemon Reloading"
+VALIDATE $? "Daemon Reloading"
 
 systemctl enable backend &>>$LOG_FILE
-VALIDATE $? " backend is enabling"
+VALIDATE $? "backend is enabling"
 
 systemctl start backend &>>$LOG_FILE
-VALIDATE $? " Staring the backend service"
+VALIDATE $? "Staring the backend service"
 
 dnf install mysql -y &>>$LOG_FILE
-VALIDATE $? " Installing MySql Client"
+VALIDATE $? "Installing MySql Client"
 
 mysql -h 10.0.1.18 -uroot -pExpenseApp@1 < /opt/app/schema/backend.sql
-VALIDATE $? " Loading SCHEMAS to MySQL"
+VALIDATE $? "Loading SCHEMAS to MySQL"
 
 systemctl restart backend  &>>$LOG_FILE
-VALIDATE $? " Restarting Backend Services" 
+VALIDATE $? "Restarting Backend Services" 
 
 END_TIME=$(date +%S)
 TOTAL_TIME=$(($END_TIME-$START_TIME))

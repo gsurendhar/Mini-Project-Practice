@@ -44,7 +44,7 @@ VALIDATE $? " enabling Default nodejs"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? " Installing nodejs:20 "
 
-id roboshop
+id expense
 if [ $? -ne 0 ]
 then
     useradd --system --home /opt/app --shell /sbin/nologin --comment "Roboshop system user " expense 

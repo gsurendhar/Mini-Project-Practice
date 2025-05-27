@@ -70,5 +70,5 @@ systemctl restart nginx &>>$LOG_FILE
 VALIDATE $? "Restarting Nginx"
 
 END_TIME=$(date +%S)
-TOTAL_TIME=$(($END_TIME-$START_TIME))
+TOTAL_TIME=$(($END_TIME-$START_SCRIPT))
 echo -e "Script Execution Completed Successfully, $Y time taken : $TOTAL_TIME Seconds $N "

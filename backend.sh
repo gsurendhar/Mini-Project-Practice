@@ -6,31 +6,31 @@ SCRIPT_DIR=$PWD
 LOG_FOLDER="/var/log/expense-logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
-R="\e[31"
-G="\e[32"
-Y="\e[33"
-N="\e[0"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
-echo "Script execution started at $(date +%F-%M-%S) " | tee -a $LOG_FILE
+echo "Script execution started at $(date) " | tee -a $LOG_FILE
 
 mkdir -p $LOG_FOLDER
 
 # ROOT PRIVILEGES CHECKING
 if [ $USERID -ne 0 ]
 then 
-    echo -e "ERROR: Please run Script with the root access" | tee -a $LOG_FILE
+    echo -e "$R ERROR: Please run Script with the root access $N" | tee -a $LOG_FILE
     exit 1
 else 
-    echo -e "You are already running with ROOT access" | tee -a $LOG_FILE
+    echo -e "$Y You are already running with ROOT access $N" | tee -a $LOG_FILE
 fi
 
 # VALIDATION FUNCTION
 VALIDATE(){
     if [ $1 -eq 0 ]
     then
-        echo -e "$2 is ........ SUCCESSES"  | tee -a $LOG_FILE
+        echo -e "$2 is ........ $G SUCCESSES $N"  | tee -a $LOG_FILE
     else    
-        echo -e "$2 is ......... FAILURE"   | tee -a $LOG_FILE
+        echo -e "$2 is ......... $R FAILURE $N"   | tee -a $LOG_FILE
         exit 1
     fi
 }

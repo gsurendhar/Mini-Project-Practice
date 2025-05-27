@@ -6,10 +6,10 @@ SCRIPT_DIR=$PWD
 LOG_FOLDER="/var/log/expense-logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
-R="\e[31"
-G="\e[32"
-Y="\e[33"
-N="\e[0"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 
 echo "Script execution started at $(date)" | tee -a $LOG_FILE

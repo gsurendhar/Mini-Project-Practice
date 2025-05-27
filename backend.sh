@@ -11,7 +11,7 @@ G="\e[31"
 Y="\e[31"
 N="\e[31"
 
-echo "Script execution started at $START_TIME " | tee -a $LOG_FILE
+echo "Script execution started at $(date) " | tee -a $LOG_FILE
 
 mkdir -p $LOG_FOLDER
 
@@ -36,13 +36,13 @@ VALIDATE(){
 }
 
 dnf module disable nodejs -y  &>>$LOG_FILE
-VALIDATE $? "Disabling Default nodejs"
+VALIDATE $? " Disabling Default nodejs"
 
 dnf module enable nodejs:20 -y &>>$LOG_FILE
-VALIDATE $? "enabling Default nodejs"
+VALIDATE $? " enabling Default nodejs"
 
 dnf install nodejs -y &>>$LOG_FILE
-VALIDATE $? "Installing nodejs:20 "
+VALIDATE $? " Installing nodejs:20 "
 
 id roboshop
 if [ $? -ne 0 ]
@@ -50,11 +50,11 @@ then
     useradd --system --home /opt/app --shell /sbin/nologin --comment "Roboshop system user " roboshop 
     VALIDATE $? "Roboshop system user creating" 
 else
-    echo -e "roboshop user is already Created ....$Y SKIPPING USER Creation $N"
+    echo -e " roboshop user is already Created ....$Y SKIPPING USER Creation $N"
 fi
 
 mkdir -p /opt/app
-VALIDATE $? "Creating App directory"
+VALIDATE $? " Creating App directory"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip  &>>$LOG_FILE
 VALIDATE $? "Downloading backend"
@@ -62,31 +62,31 @@ VALIDATE $? "Downloading backend"
 cd /opt/app 
 rm -rf /opt/app/*
 unzip /tmp/backend.zip &>>$LOG_FILE
-VALIDATE $? "Unzipping backend"
+VALIDATE $? " Unzipping backend"
 
 npm install &>>$LOG_FILE
-VALIDATE $? "Installing Dependencies"
+VALIDATE $? " Installing Dependencies"
 
 cp $SCRIPT_DIR/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
-VALIDATE $? "backend service file is copied "
+VALIDATE $? " backend service file is copied "
 
 systemctl daemon-reload &>>$LOG_FILE
-VALIDATE $? "Daemon Reloading"
+VALIDATE $? " Daemon Reloading"
 
 systemctl enable backend &>>$LOG_FILE
-VALIDATE $? "backend is enabling"
+VALIDATE $? " backend is enabling"
 
 systemctl start backend &>>$LOG_FILE
-VALIDATE $? "Staring the backend service"
+VALIDATE $? " Staring the backend service"
 
 dnf install mysql -y &>>$LOG_FILE
-VALIDATE $? "Installing MySql Client"
+VALIDATE $? " Installing MySql Client"
 
 mysql -h 10.0.1.18 -uroot -pExpenseApp@1 < /opt/app/schema/backend.sql
-VALIDATE $? "Loading SCHEMAS to MySQL"
+VALIDATE $? " Loading SCHEMAS to MySQL"
 
 systemctl restart backend  &>>$LOG_FILE
-VALIDATE $? "Restarting Backend Services" 
+VALIDATE $? " Restarting Backend Services" 
 
 END_TIME=$(date +%S)
 TOTAL_TIME=$(($END_TIME-$START_TIME))

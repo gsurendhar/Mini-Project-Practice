@@ -22,7 +22,7 @@ then
     echo -e " $R ERROR:$N Please run Script with the root access " | tee -a $LOG_FILE
     exit 1
 else 
-    echo -e " You are already running with $Y ROOT $N access " | tee -a $LOG_FILE
+    echo -e " You are already running with $YROOT $N access " | tee -a $LOG_FILE
 fi
 
 # VALIDATION FUNCTION

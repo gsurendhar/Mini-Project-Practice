@@ -7,9 +7,9 @@ LOG_FOLDER="/var/log/expense-logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
 R="\e[31"
-G="\e[31"
-Y="\e[31"
-N="\e[31"
+G="\e[32"
+Y="\e[33"
+N="\e[0"
 
 
 echo "Script execution started at $START_TIME" | tee -a $LOG_FILE
@@ -22,7 +22,7 @@ then
     echo -e "$R ERROR:$N Please run Script with the root access" | tee -a $LOG_FILE
     exit 1
 else 
-    echo -e "You are already running with $Y ROOT$N access" | tee -a $LOG_FILE
+    echo -e "You are already running with $Y ROOT access $N" | tee -a $LOG_FILE
 fi
 
 # VALIDATION FUNCTION
@@ -53,6 +53,6 @@ VALIDATE $? "Starting MySql Service"
 mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD
 VALIDATE $? "Setting MySql Root Password"
 
-END_TIME=$(date +%S)
+END_TIME=$(date)
 TOTAL_TIME=$(($END_TIME-$START_TIME))
 echo -e "Script Execution Completed Successfully, $Y time taken : $TOTAL_TIME Seconds $N "

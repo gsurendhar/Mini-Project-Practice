@@ -82,7 +82,7 @@ VALIDATE $? "Staring the backend service"
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "Installing MySql Client"
 
-mysql -h mysql.gonela.site -uroot -pExpenseApp@1 < /opt/app/schema/backend.sql
+mysql -h localhost -uroot -pExpenseApp@1 < /opt/app/schema/backend.sql
 VALIDATE $? "Loading SCHEMAS to MySQL"
 
 systemctl restart backend  &>>$LOG_FILE

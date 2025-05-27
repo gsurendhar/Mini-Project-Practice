@@ -11,17 +11,17 @@ G="\e[31"
 Y="\e[31"
 N="\e[31"
 
-echo "Script execution started at $START_SCRIPT " | tee -a $LOG_FILE
+echo "Script execution started at $(date) " | tee -a $LOG_FILE
 
 mkdir -p $LOG_FOLDER
 
 # ROOT PRIVILEGES CHECKING
 if [ $USERID -ne 0 ]
 then 
-    echo  " ERROR Please run Script with the root access " | tee -a $LOG_FILE
+    echo  "ERROR Please run Script with the root access " | tee -a $LOG_FILE
     exit 1
 else 
-    echo -e " You are already running with  ROOT access " | tee -a $LOG_FILE
+    echo -e "You are already running with  ROOT access " | tee -a $LOG_FILE
 fi
 
 # VALIDATION FUNCTION
@@ -36,7 +36,7 @@ VALIDATE(){
 }
 
 dnf module disable nginx -y &>>$LOG_FILE
-VALIDATE $? " Disabling Default nginx "
+VALIDATE $? "Disabling Default nginx "
 
 dnf module enable nginx:1.24 -y &>>$LOG_FILE
 VALIDATE $? "Enabling Nginx:1.24 "
@@ -68,3 +68,7 @@ VALIDATE $? "Adding nginx conf file"
 
 systemctl restart nginx &>>$LOG_FILE
 VALIDATE $? "Restarting Nginx"
+
+END_TIME=$(date +%S)
+TOTAL_TIME=$(($END_TIME-$START_TIME))
+echo -e "Script Execution Completed Successfully, $Y time taken : $TOTAL_TIME Seconds $N "

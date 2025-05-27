@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-START_TIME=$(date)
+START_TIME=$(date +%S)
 USERID=$(id -u)
 SCRIPT_DIR=$PWD
 LOG_FOLDER="/var/log/expense-logs"
@@ -12,7 +12,7 @@ Y="\e[33"
 N="\e[0"
 
 
-echo "Script execution started at $START_TIME" | tee -a $LOG_FILE
+echo "Script execution started at $(date)" | tee -a $LOG_FILE
 
 mkdir -p $LOG_FOLDER
 
@@ -53,6 +53,6 @@ VALIDATE $? "Starting MySql Service"
 mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD
 VALIDATE $? "Setting MySql Root Password"
 
-END_TIME=$(date)
+END_TIME=$(date +%S)
 TOTAL_TIME=$(($END_TIME-$START_TIME))
 echo -e "Script Execution Completed Successfully, $Y time taken : $TOTAL_TIME Seconds $N "

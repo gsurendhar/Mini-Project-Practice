@@ -50,7 +50,7 @@ then
     useradd --system --home /opt/app --shell /sbin/nologin --comment "Expense app system user " expense 
     VALIDATE $? "EXPENSE system user creating" 
 else
-    echo -e "Expense user is already Created ....SKIPPING USER Creation"
+    echo -e "Expense user is already Created ....$Y SKIPPING USER Creation $N"
 fi
 
 mkdir -p /opt/app

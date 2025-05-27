@@ -37,8 +37,8 @@ VALIDATE(){
 }
 
 
-echo "Please enter MySql Root Password"  | tee -a $LOG_FILE
-read -s MYSQL_ROOT_PASSWORD
+# echo "Please enter MySql Root Password"  | tee -a $LOG_FILE
+# read -s MYSQL_ROOT_PASSWORD
 
 dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "Installing MySql"
@@ -50,7 +50,7 @@ VALIDATE $? "Enabling MySql Service"
 systemctl start mysqld  &>>$LOG_FILE
 VALIDATE $? "Starting MySql Service" 
 
-mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD
+mysql_secure_installation --set-root-pass ExpenseApp@1
 VALIDATE $? "Setting MySql Root Password"
 
 END_TIME=$(date +%S)

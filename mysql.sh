@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-START_TIME=$(date +%S)
+START_TIME=$(date)
 USERID=$(id -u)
 SCRIPT_DIR=$PWD
 LOG_FOLDER="/var/log/expense-logs"
@@ -12,26 +12,26 @@ Y="\e[31"
 N="\e[31"
 
 
-echo "Script execution started at $START_TIME " | tee -a $LOG_FILE
+echo "Script execution started at $START_TIME" | tee -a $LOG_FILE
 
 mkdir -p $LOG_FOLDER
 
 # ROOT PRIVILEGES CHECKING
 if [ $USERID -ne 0 ]
 then 
-    echo -e " $R ERROR:$N Please run Script with the root access " | tee -a $LOG_FILE
+    echo -e "$R ERROR:$N Please run Script with the root access" | tee -a $LOG_FILE
     exit 1
 else 
-    echo -e " You are already running with $YROOT $N access " | tee -a $LOG_FILE
+    echo -e "You are already running with $Y ROOT$N access" | tee -a $LOG_FILE
 fi
 
 # VALIDATION FUNCTION
 VALIDATE(){
     if [ $1 -eq 0 ]
     then
-        echo -e "$2 is ........$G SUCCESSES $N"  | tee -a $LOG_FILE
+        echo -e "$2 is ........$G SUCCESSES$N"  | tee -a $LOG_FILE
     else    
-        echo -e "$2 is .........$R FAILURE $N"   | tee -a $LOG_FILE
+        echo -e "$2 is .........$R FAILURE$N"   | tee -a $LOG_FILE
         exit 1
     fi
 }

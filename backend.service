@@ -3,7 +3,7 @@ Description = Backend Service
 
 [Service]
 User=expense
-Environment=DB_HOST="mysql.gonela.site"
+Environment=DB_HOST="localhost"
 ExecStart=/bin/node /opt/app/index.js
 SyslogIdentifier=backend
 

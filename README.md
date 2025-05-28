@@ -40,9 +40,6 @@ This project is ideal for learning full-stack deployment, system design, and bas
 
 ## 📂 Project Structure
 
-Mini-Project-Practice/ 
-## 🧱 Project Structure
-
 ```bash
 Mini-Project-Practice/
 ├── frontend/        # Nginx and static web files
@@ -50,6 +47,7 @@ Mini-Project-Practice/
 ├── mysql/           # SQL scripts and DB setup
 ├── expense.conf     # Nginx configuration
 └── README.md
+```
 
 ## ⚙️  Setup Instructions
 

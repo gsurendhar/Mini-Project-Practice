@@ -33,7 +33,6 @@ Each tier runs on a dedicated server:
 - Backend: Listens for API requests (Node.js)
 - Database: MySQL handles data storage and retrieval
 
----
 
 This project is ideal for learning full-stack deployment, system design, and basic expense management.
 
@@ -52,12 +51,12 @@ Mini-Project-Practice/
 ## ⚙️  Setup Instructions
 
 1. Frontend: Configure Nginx to serve static files from the frontend/ directory.
-
-2.Backend: Run the Node.js server from the backend/ folder.
-
-3.Database: Use SQL scripts in mysql/ to initialize MySQL tables.
+2. Backend: Run the Node.js server from the backend/ folder.
+3. Database: Use SQL scripts in mysql/ to initialize MySQL tables.
 
 ## 📝 Notes
 Ensure all services (frontend, backend, and database) are running on their respective servers.
 
 For detailed configurations, refer to the respective `*.md` files in each directory.
+
+---

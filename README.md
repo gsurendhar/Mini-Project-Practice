@@ -40,39 +40,26 @@ This project is ideal for learning full-stack deployment, system design, and bas
 
 ## 📂 Project Structure
 
+Mini-Project-Practice/ 
+## 🧱 Project Structure
+
+```bash
 Mini-Project-Practice/
-├── backend/
-│   ├── backend.md
-│   ├── backend.service
-│   ├── backend.sh
-├── frontend/
-│   ├── frontend.md
-│   ├── frontend.sh
-│   ├── expense.conf
-├── mysql/
-│   ├── mysql.md
-│   ├── mysql.sh
+├── frontend/        # Nginx and static web files
+├── backend/         # Node.js service and API scripts
+├── mysql/           # SQL scripts and DB setup
+├── expense.conf     # Nginx configuration
 └── README.md
 
-## 🚀 Setup Instructions
-1. Database Setup (MySQL)
+## ⚙️  Setup Instructions
 
-Navigate to the mysql directory.
+1. Frontend: Configure Nginx to serve static files from the frontend/ directory.
 
-Execute the SQL scripts to set up the database schema and tables.
+2.Backend: Run the Node.js server from the backend/ folder.
 
-2. Backend Setup (Node.js)
+3.Database: Use SQL scripts in mysql/ to initialize MySQL tables.
 
-Navigate to the backend directory.
+## 📝 Notes
+Ensure all services (frontend, backend, and database) are running on their respective servers.
 
-Install dependencies:
-
-```
-npm install
-```
-
-3. Frontend Setup (Nginx)
-
-Navigate to the frontend directory.
-
-Configure Nginx to serve the static files.
+For detailed configurations, refer to the respective `*.md` files in each directory.

@@ -37,7 +37,9 @@ Each tier runs on a dedicated server:
 
 This project is ideal for learning full-stack deployment, system design, and basic expense management.
 
-📂 Project Structure
+
+## 📂 Project Structure
+
 Mini-Project-Practice/
 ├── backend/
 │   ├── backend.md
@@ -54,21 +56,23 @@ Mini-Project-Practice/
 
 ## 🚀 Setup Instructions
 1. Database Setup (MySQL)
+
 Navigate to the mysql directory.
 
 Execute the SQL scripts to set up the database schema and tables.
 
 2. Backend Setup (Node.js)
+
 Navigate to the backend directory.
 
 Install dependencies:
 
-bash
 ```
 npm install
 ```
 
 3. Frontend Setup (Nginx)
+
 Navigate to the frontend directory.
 
 Configure Nginx to serve the static files.
